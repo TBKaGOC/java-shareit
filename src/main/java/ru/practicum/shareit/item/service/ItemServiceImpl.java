@@ -12,7 +12,6 @@ import ru.practicum.shareit.user.dao.UserStorage;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
