@@ -2,6 +2,7 @@ package ru.practicum.shareit.item.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import ru.practicum.shareit.item.dao.ItemStorage;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.exception.InvalidHostException;
@@ -13,6 +14,7 @@ import ru.practicum.shareit.user.dao.UserStorage;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Collection<ItemDto> searchItems(String text) {
-        if (text.isBlank()) {
+        if (StringUtils.hasText(text)) {
             return new ArrayList<>();
         }
         return storage.searchItems(text).stream()
@@ -67,9 +69,9 @@ public class ItemServiceImpl implements ItemService {
         Item old = storage.getItem(itemId);
         Item newItem = Item.builder()
                 .id(itemId)
-                .name(item.getName() == null ? old.getName() : item.getName())
-                .description(item.getDescription() == null ? old.getDescription() : item.getDescription())
-                .available(item.getAvailable() == null ? old.getAvailable() : item.getAvailable())
+                .name(Optional.ofNullable(item.getName()).orElse(old.getName()))
+                .description(Optional.ofNullable(item.getDescription()).orElse(old.getDescription()))
+                .available(Optional.ofNullable(item.getAvailable()).orElse(old.getAvailable()))
                 .build();
 
         storage.updateItem(newItem);

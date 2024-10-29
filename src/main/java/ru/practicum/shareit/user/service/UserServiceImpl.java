@@ -9,6 +9,8 @@ import ru.practicum.shareit.user.exception.CorruptedDataException;
 import ru.practicum.shareit.user.exception.DuplicateDataException;
 import ru.practicum.shareit.user.mapper.UserDtoMapper;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -43,8 +45,8 @@ public class UserServiceImpl implements UserService {
 
         User newUser = User.builder()
                 .id(userId)
-                .email(user.getEmail() == null ? old.getEmail() : user.getEmail())
-                .name(user.getName() == null ? old.getName() : user.getName())
+                .email(Optional.ofNullable(user.getEmail()).orElse(old.getEmail()))
+                .name(Optional.ofNullable(user.getName()).orElse(old.getName()))
                 .build();
         storage.updateUser(newUser);
 
