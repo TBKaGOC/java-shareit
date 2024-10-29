@@ -38,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Collection<ItemDto> searchItems(String text) {
-        if (StringUtils.hasText(text)) {
+        if (!StringUtils.hasText(text)) {
             return new ArrayList<>();
         }
         return storage.searchItems(text).stream()
