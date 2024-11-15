@@ -1,17 +1,13 @@
 package ru.practicum.shareit.user.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import ru.practicum.shareit.user.User;
 
-public interface UserStorage {
-    User getUser(Integer userId);
+public interface UserStorage extends JpaRepository<User, Integer> {
+    @Query(value = "SELECT EXISTS(SELECT u.* FROM users As u WHERE email LIKE ?1)", nativeQuery = true)
+    boolean containsEmail(String text);
 
-    void createUser(User user);
-
-    void updateUser(User user);
-
-    void deleteUser(Integer userId);
-
-    boolean containsUser(Integer userId);
-
-    boolean containsEmail(String email);
+    @Query("select u.name from User as u where u.id = ?1")
+    String getName(Integer userId);
 }

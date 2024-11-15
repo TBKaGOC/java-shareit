@@ -2,6 +2,7 @@ package ru.practicum.shareit.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.practicum.shareit.item.exception.NotFoundException;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.dao.UserStorage;
 import ru.practicum.shareit.user.dto.UserDto;
@@ -18,12 +19,14 @@ public class UserServiceImpl implements UserService {
     private final UserDtoMapper mapper;
 
     @Override
-    public UserDto getUser(Integer userId) {
-        return mapper.mapToDto(storage.getUser(userId));
+    public UserDto getUser(Integer userId) throws NotFoundException {
+        return mapper.mapToDto(storage.findById(userId).orElseThrow(
+                () -> new NotFoundException("Пользователь " + userId + " не существует"))
+        );
     }
 
     @Override
-    public UserDto createUser(UserDto user) throws DuplicateDataException, CorruptedDataException {
+    public UserDto createUser(UserDto user) throws DuplicateDataException, CorruptedDataException, NotFoundException {
         if (user.getEmail() == null) {
             throw new CorruptedDataException("Е-мэйл не может быть null");
         }
@@ -32,29 +35,29 @@ public class UserServiceImpl implements UserService {
         }
 
         User res = mapper.mapToUser(user);
-        storage.createUser(res);
-        return mapper.mapToDto(storage.getUser(res.getId()));
+        return mapper.mapToDto(storage.save(res));
     }
 
     @Override
-    public UserDto updateUser(UserDto user, Integer userId) throws DuplicateDataException {
+    public UserDto updateUser(UserDto user, Integer userId) throws DuplicateDataException, NotFoundException {
         if (user.getEmail() != null && storage.containsEmail(user.getEmail())) {
             throw new DuplicateDataException("Е-мэйл " + user.getEmail() + " уже используется");
         }
-        User old = storage.getUser(userId);
+        User old = storage.findById(userId).orElseThrow(
+                () -> new NotFoundException("Пользователь " + user + " не существует")
+        );
 
         User newUser = User.builder()
                 .id(userId)
                 .email(Optional.ofNullable(user.getEmail()).orElse(old.getEmail()))
                 .name(Optional.ofNullable(user.getName()).orElse(old.getName()))
                 .build();
-        storage.updateUser(newUser);
 
-        return mapper.mapToDto(storage.getUser(userId));
+        return mapper.mapToDto(storage.save(newUser));
     }
 
     @Override
     public void deleteUser(Integer userId) {
-        storage.deleteUser(userId);
+        storage.deleteById(userId);
     }
 }

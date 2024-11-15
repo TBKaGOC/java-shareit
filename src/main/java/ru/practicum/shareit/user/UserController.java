@@ -3,6 +3,7 @@ package ru.practicum.shareit.user;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.item.exception.NotFoundException;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.exception.CorruptedDataException;
 import ru.practicum.shareit.user.exception.DuplicateDataException;
@@ -18,18 +19,18 @@ public class UserController {
     private final UserService service;
 
     @GetMapping("/{userId}")
-    public UserDto getUser(@PathVariable Integer userId) {
+    public UserDto getUser(@PathVariable Integer userId) throws NotFoundException {
         return service.getUser(userId);
     }
 
     @PostMapping
-    public UserDto createUser(@RequestBody @Valid UserDto user) throws DuplicateDataException, CorruptedDataException {
+    public UserDto createUser(@RequestBody @Valid UserDto user) throws DuplicateDataException, CorruptedDataException, NotFoundException {
         return service.createUser(user);
     }
 
     @PatchMapping("/{userId}")
     public UserDto updateUser(@RequestBody @Valid UserDto user, @PathVariable Integer userId)
-            throws DuplicateDataException {
+            throws DuplicateDataException, NotFoundException {
         return service.updateUser(user, userId);
     }
 
