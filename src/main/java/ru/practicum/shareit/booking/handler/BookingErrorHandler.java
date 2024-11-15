@@ -9,8 +9,6 @@ import ru.practicum.shareit.booking.exception.UnavailableItemException;
 import ru.practicum.shareit.booking.exception.InvalidHostException;
 import ru.practicum.shareit.booking.exception.NotFoundException;
 
-import java.util.Arrays;
-
 @RestControllerAdvice("ru.practicum.shareit.booking")
 public class BookingErrorHandler {
     @ExceptionHandler
