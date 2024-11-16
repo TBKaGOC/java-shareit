@@ -6,6 +6,8 @@ import ru.practicum.shareit.item.dao.ItemStorage;
 import ru.practicum.shareit.item.dto.ItemDtoWithDate;
 import ru.practicum.shareit.item.model.Item;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Component
 public class ItemDateDtoMapper {
@@ -22,14 +24,16 @@ public class ItemDateDtoMapper {
     }
 
     public ItemDtoWithDate mapToDto(Item item) {
+        LocalDateTime now = LocalDateTime.now();
+
         return ItemDtoWithDate.builder()
                 .id(item.getId())
                 .name(item.getName())
                 .description(item.getDescription())
                 .available(item.getAvailable())
                 .comments(item.getComments())
-                .lastBooking(storage.findLastBooking(item.getId()))
-                .nextBooking(storage.findNextBooking(item.getId()))
+                .lastBooking(storage.findLastBooking(item.getId(), now))
+                .nextBooking(storage.findNextBooking(item.getId(), now))
                 .build();
     }
 }
