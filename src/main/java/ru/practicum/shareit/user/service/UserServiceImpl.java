@@ -35,7 +35,8 @@ public class UserServiceImpl implements UserService {
         }
 
         User res = mapper.mapToUser(user);
-        return mapper.mapToDto(storage.save(res));
+        User result = storage.save(res);
+        return mapper.mapToDto(result);
     }
 
     @Override

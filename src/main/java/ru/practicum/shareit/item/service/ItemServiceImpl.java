@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import ru.practicum.shareit.booking.dao.BookingStorage;
+import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.item.dao.CommentStorage;
 import ru.practicum.shareit.item.dao.ItemStorage;
 import ru.practicum.shareit.item.dto.CommentReturnDto;
@@ -67,12 +68,13 @@ public class ItemServiceImpl implements ItemService {
         Item res = mapper.mapToItem(item);
         res.setHostId(userId);
 
-        return mapper.mapToDto(storage.save(res));
+        Item result = storage.save(res);
+        return mapper.mapToDto(result);
     }
 
     @Override
     public CommentReturnDto createComment(Comment comment, Integer itemId, Integer userId) throws InvalidBookingException {
-        if (!bookingStorage.containsUserBooking(itemId, userId, LocalDateTime.now().plusMinutes(15))) {
+        if (!bookingStorage.containsUserBooking(itemId, userId, LocalDateTime.now())) {
             throw new InvalidBookingException("Пользователь " + userId + " не арендовал предмет " + itemId);
         }
 

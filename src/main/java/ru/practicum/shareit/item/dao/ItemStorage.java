@@ -23,13 +23,13 @@ public interface ItemStorage extends JpaRepository<Item, Integer> {
 
     @Query(value = "SELECT MAX(b.booking_end) FROM items as i" +
             " LEFT OUTER JOIN bookings as b ON b.item_id = i.id" +
-            " WHERE i.id = ?1 AND b.booking_end > ?2" +
+            " WHERE i.id = ?1 AND b.booking_end < ?2" +
             " GROUP BY i.id", nativeQuery = true)
     @Nullable LocalDateTime findLastBooking(Integer itemId, LocalDateTime now);
 
     @Query(value = "SELECT MIN(b.start) FROM items as i" +
             " LEFT OUTER JOIN bookings as b ON b.item_id = i.id" +
-            " WHERE i.id = ?1 AND b.start < ?2" +
+            " WHERE i.id = ?1 AND b.start > ?2" +
             " GROUP BY i.id", nativeQuery = true)
     @Nullable LocalDateTime findNextBooking(Integer itemId, LocalDateTime now);
 }

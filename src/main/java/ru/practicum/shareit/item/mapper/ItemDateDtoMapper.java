@@ -7,6 +7,7 @@ import ru.practicum.shareit.item.dto.ItemDtoWithDate;
 import ru.practicum.shareit.item.model.Item;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @RequiredArgsConstructor
 @Component
@@ -24,7 +25,7 @@ public class ItemDateDtoMapper {
     }
 
     public ItemDtoWithDate mapToDto(Item item) {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().minusSeconds(2);
 
         return ItemDtoWithDate.builder()
                 .id(item.getId())

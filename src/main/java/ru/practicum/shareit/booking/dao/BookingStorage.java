@@ -65,6 +65,6 @@ public interface BookingStorage extends JpaRepository<Booking, Integer> {
     Collection<Booking> getHostBookingStatus(Integer userId, String status);
 
     @Query(value = "SELECT EXISTS(SELECT b.* FROM bookings AS b" +
-            " WHERE b.item_id = ?1 AND b.user_id = ?2 AND b.start > ?3)", nativeQuery = true)
+            " WHERE b.item_id = ?1 AND b.user_id = ?2 AND b.start < ?3)", nativeQuery = true)
     boolean containsUserBooking(Integer itemId, Integer userId, LocalDateTime now);
 }
