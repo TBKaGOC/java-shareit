@@ -53,11 +53,6 @@ public class UserServiceImpl implements UserService {
 
         return mapper.mapToDto(storage.save(newUser));
     }
-    
-    @Override
-    public void deleteUser(Integer userId) {
-        storage.deleteById(userId);
-    }
 
     @Override
     public void throwNotFound(Integer userId) throws  ru.practicum.shareit.booking.exception.NotFoundException {
@@ -65,6 +60,11 @@ public class UserServiceImpl implements UserService {
             throw new ru.practicum.shareit.booking.exception.NotFoundException("Пользователь " +
                     userId + " не существует");
         }
+    }
+
+    @Override
+    public void deleteUser(Integer userId) {
+        storage.deleteById(userId);
     }
 
     @Override
