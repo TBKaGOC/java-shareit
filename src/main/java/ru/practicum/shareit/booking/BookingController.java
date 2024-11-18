@@ -9,6 +9,7 @@ import ru.practicum.shareit.booking.exception.CorruptedDataException;
 import ru.practicum.shareit.booking.exception.InvalidHostException;
 import ru.practicum.shareit.booking.exception.NotFoundException;
 import ru.practicum.shareit.booking.exception.UnavailableItemException;
+import ru.practicum.shareit.booking.model.State;
 import ru.practicum.shareit.booking.service.BookingService;
 
 import java.util.Collection;
@@ -30,19 +31,21 @@ public class BookingController {
 
     @GetMapping
     public Collection<BookingReturnDto> getUserBookings(@RequestHeader("X-Sharer-User-Id") Integer userId,
-                                                        @RequestParam(required = false, defaultValue = "ALL") String state) throws NotFoundException {
+                                                        @RequestParam(required = false, defaultValue = "ALL") State state)
+            throws NotFoundException {
         return service.getUserBookings(userId, state);
     }
 
     @GetMapping("/owner")
     public Collection<BookingReturnDto> getHostBookings(@RequestHeader("X-Sharer-User-Id") Integer userId,
-                                                        @RequestParam(required = false, defaultValue = "ALL") String state) throws NotFoundException {
+                                                        @RequestParam(required = false, defaultValue = "ALL") State state)
+            throws NotFoundException {
         return service.getHostBookings(userId, state);
     }
 
     @PostMapping
     public BookingReturnDto addBooking(@RequestBody @Valid BookingDto booking, @RequestHeader("X-Sharer-User-Id") Integer userId)
-            throws CorruptedDataException, NotFoundException, UnavailableItemException {
+            throws CorruptedDataException, NotFoundException, UnavailableItemException, ru.practicum.shareit.item.exception.NotFoundException {
         return service.addBooking(booking, userId);
     }
 

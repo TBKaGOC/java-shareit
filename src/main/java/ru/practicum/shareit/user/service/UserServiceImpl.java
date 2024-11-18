@@ -20,13 +20,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUser(Integer userId) throws NotFoundException {
-        return mapper.mapToDto(storage.findById(userId).orElseThrow(
-                () -> new NotFoundException("Пользователь " + userId + " не существует"))
+        return mapper.mapToDto(findUserOrThrow(userId)
         );
     }
 
     @Override
-    public UserDto createUser(UserDto user) throws DuplicateDataException, CorruptedDataException, NotFoundException {
+    public UserDto createUser(UserDto user) throws DuplicateDataException, CorruptedDataException {
         if (user.getEmail() == null) {
             throw new CorruptedDataException("Е-мэйл не может быть null");
         }
@@ -44,9 +43,7 @@ public class UserServiceImpl implements UserService {
         if (user.getEmail() != null && storage.containsEmail(user.getEmail())) {
             throw new DuplicateDataException("Е-мэйл " + user.getEmail() + " уже используется");
         }
-        User old = storage.findById(userId).orElseThrow(
-                () -> new NotFoundException("Пользователь " + user + " не существует")
-        );
+        User old = findUserOrThrow(userId);
 
         User newUser = User.builder()
                 .id(userId)
@@ -56,9 +53,23 @@ public class UserServiceImpl implements UserService {
 
         return mapper.mapToDto(storage.save(newUser));
     }
-
     @Override
     public void deleteUser(Integer userId) {
         storage.deleteById(userId);
+    }
+
+    @Override
+    public void throwNotFound(Integer userId) throws  ru.practicum.shareit.booking.exception.NotFoundException {
+        if (!storage.existsById(userId)) {
+            throw new ru.practicum.shareit.booking.exception.NotFoundException("Пользователь " +
+                    userId + " не существует");
+        }
+    }
+
+    @Override
+    public User findUserOrThrow(Integer userId) throws NotFoundException {
+        return storage.findById(userId).orElseThrow(
+                () -> new NotFoundException("Пользователь " + userId + " не существует")
+        );
     }
 }

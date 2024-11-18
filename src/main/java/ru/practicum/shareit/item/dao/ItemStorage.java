@@ -12,24 +12,25 @@ public interface ItemStorage extends JpaRepository<Item, Integer> {
     Collection<Item> findByHostId(int userId);
 
     @Query("select i from Item as i " +
-            "where (upper(i.name) like upper(?1) or upper(i.description) like upper(?1)) and available = true")
-    Collection<Item> findByNameOrDescriptionContainingIgnoreCaseAndAvailableTrue(String nameSearch);
+            "where (upper(i.name) like upper(:nameSearch) or upper(i.description) like upper(:nameSearch)) " +
+            "and available = true")
+    Collection<Item> findAvailableByQuery(String nameSearch);
 
-    @Query("select i.hostId from Item as i where i.id = ?1")
+    @Query("select i.hostId from Item as i where i.id = :id")
     Integer findUserIdById(int id);
 
-    @Query(value = "SELECT i.available FROM items AS i WHERE i.id = ?1", nativeQuery = true)
+    @Query(value = "SELECT i.available FROM items AS i WHERE i.id = :id", nativeQuery = true)
     Boolean findAvailableById(Integer id);
 
     @Query(value = "SELECT MAX(b.booking_end) FROM items as i" +
             " LEFT OUTER JOIN bookings as b ON b.item_id = i.id" +
-            " WHERE i.id = ?1 AND b.booking_end < ?2" +
+            " WHERE i.id = :itemId AND b.booking_end < :now" +
             " GROUP BY i.id", nativeQuery = true)
     @Nullable LocalDateTime findLastBooking(Integer itemId, LocalDateTime now);
 
     @Query(value = "SELECT MIN(b.start) FROM items as i" +
             " LEFT OUTER JOIN bookings as b ON b.item_id = i.id" +
-            " WHERE i.id = ?1 AND b.start > ?2" +
+            " WHERE i.id = :itemId AND b.start > :now" +
             " GROUP BY i.id", nativeQuery = true)
     @Nullable LocalDateTime findNextBooking(Integer itemId, LocalDateTime now);
 }

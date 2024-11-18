@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import ru.practicum.shareit.booking.dao.BookingStorage;
+import ru.practicum.shareit.booking.exception.UnavailableItemException;
 import ru.practicum.shareit.item.dao.CommentStorage;
 import ru.practicum.shareit.item.dao.ItemStorage;
 import ru.practicum.shareit.item.dto.CommentReturnDto;
@@ -42,9 +43,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDtoWithDate getItem(Integer itemId, Integer userId) throws NotFoundException {
-        return dateMapper.mapToDto(storage.findById(itemId).orElseThrow(
-            () -> new NotFoundException("Предмет " + itemId + " не найден")
-        ));
+        return dateMapper.mapToDto(findItemOrThrow(itemId));
     }
 
     @Override
@@ -52,7 +51,7 @@ public class ItemServiceImpl implements ItemService {
         if (!StringUtils.hasText(text)) {
             return new ArrayList<>();
         }
-        return storage.findByNameOrDescriptionContainingIgnoreCaseAndAvailableTrue(text)
+        return storage.findAvailableByQuery(text)
                 .stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toSet());
@@ -98,9 +97,7 @@ public class ItemServiceImpl implements ItemService {
                     " не является владельцем предмета " + item.getDescription());
         }
 
-        Item old = storage.findById(itemId).orElseThrow(
-                () -> new NotFoundException("Предмет " + itemId + " не найден")
-        );
+        Item old = findItemOrThrow(itemId);
         Item newItem = Item.builder()
                 .id(itemId)
                 .name(Optional.ofNullable(item.getName()).orElse(old.getName()))
@@ -109,5 +106,31 @@ public class ItemServiceImpl implements ItemService {
                 .build();
 
         return mapper.mapToDto(storage.save(newItem));
+    }
+
+    @Override
+    public Item findItemOrThrow(Integer itemId) throws NotFoundException {
+        return storage.findById(itemId).orElseThrow(
+                () -> new NotFoundException("Предмет " + itemId + " не найден")
+        );
+    }
+
+    @Override
+    public void throwNotAvailable(Integer itemId) throws UnavailableItemException {
+        if (!storage.findAvailableById(itemId)) {
+            throw new UnavailableItemException("Предмет " + itemId + " не доступен");
+        }
+    }
+
+    @Override
+    public void throwNotFound(Integer itemId) throws ru.practicum.shareit.booking.exception.NotFoundException {
+        if (!storage.existsById(itemId)) {
+            throw new ru.practicum.shareit.booking.exception.NotFoundException("Предмет " + itemId + " не существует");
+        }
+    }
+
+    @Override
+    public Integer findHost(Integer itemId) {
+        return storage.findUserIdById(itemId);
     }
 }
