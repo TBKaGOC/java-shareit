@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserService {
 
         return mapper.mapToDto(storage.save(newUser));
     }
+    
     @Override
     public void deleteUser(Integer userId) {
         storage.deleteById(userId);
