@@ -121,6 +121,17 @@ public class UserControllerTests {
     }
 
     @Test
+    void testSaveUserGetCorrupted() throws Exception {
+        mvc.perform(post("/users")
+                        .content(mapper.writeValueAsString(UserDto.builder().email("sdf").build()))
+                        .characterEncoding(StandardCharsets.UTF_8)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is(400));
+    }
+
+    @Test
     void testSaveUserGetThrowable() throws Exception {
         when(service.createUser(any()))
                 .thenThrow(RuntimeException.class);

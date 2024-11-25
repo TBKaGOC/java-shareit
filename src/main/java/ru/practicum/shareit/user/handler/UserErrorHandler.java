@@ -8,6 +8,7 @@ import ru.practicum.shareit.user.exception.DuplicateDataException;
 
 @RestControllerAdvice("ru.practicum.shareit.user")
 public class UserErrorHandler {
+    @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse corruptedData(MethodArgumentNotValidException e) {
         return new ErrorResponse("CorruptedDataException", e.getMessage());
