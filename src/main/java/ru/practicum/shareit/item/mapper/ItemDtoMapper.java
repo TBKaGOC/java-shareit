@@ -13,6 +13,7 @@ public class ItemDtoMapper {
                 .description(dto.getDescription())
                 .available(dto.getAvailable())
                 .comments(dto.getComments())
+                .requestId(dto.getRequestId())
                 .build();
     }
 
@@ -23,6 +24,7 @@ public class ItemDtoMapper {
                 .description(item.getDescription())
                 .available(item.getAvailable())
                 .comments(item.getComments())
+                .requestId(item.getRequestId())
                 .build();
     }
 }

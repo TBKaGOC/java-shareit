@@ -4,12 +4,20 @@ CREATE TABLE IF NOT EXISTS users (
     name varchar(100)
 );
 
+CREATE TABLE IF NOT EXISTS requests (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    description TEXT,
+    user_id BIGINT REFERENCES users (id) ON DELETE CASCADE,
+    created TIMESTAMP WITHOUT TIME ZONE
+);
+
 CREATE TABLE IF NOT EXISTS items (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name VARCHAR,
     description TEXT,
     available BOOL,
-    user_id BIGINT REFERENCES users (id) ON DELETE CASCADE
+    user_id BIGINT REFERENCES users (id) ON DELETE CASCADE,
+    request_id BIGINT REFERENCES requests (id)
 );
 
 CREATE TABLE IF NOT EXISTS comments (

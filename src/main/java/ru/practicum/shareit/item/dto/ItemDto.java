@@ -19,4 +19,5 @@ public class ItemDto {
     @NotBlank private String description;
     @NotNull private Boolean available;
     private Set<Comment> comments;
+    private Integer requestId;
 }

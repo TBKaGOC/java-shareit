@@ -19,13 +19,14 @@ import java.util.Set;
 @Table(name = "items")
 @RequiredArgsConstructor
 public class Item {
-    public Item(Integer id, String name, String description, Integer hostId, Boolean available, Set<Comment> comments) {
+    public Item(Integer id, String name, String description, Integer hostId, Boolean available, Set<Comment> comments, Integer requestId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.hostId = hostId;
         this.available = available;
         this.comments = comments;
+        this.requestId = requestId;
     }
 
     @Id
@@ -42,5 +43,7 @@ public class Item {
     @OneToMany
     @JoinColumn(name = "itemId")
     private Set<Comment> comments;
+    @Column(name = "request_id")
+    private Integer requestId;
 
 }
