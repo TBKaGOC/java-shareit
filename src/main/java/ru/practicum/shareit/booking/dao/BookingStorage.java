@@ -3,7 +3,6 @@ package ru.practicum.shareit.booking.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ru.practicum.shareit.booking.model.Booking;
-import ru.practicum.shareit.booking.model.State;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,7 +31,7 @@ public interface BookingStorage extends JpaRepository<Booking, Integer> {
     @Query(value = "SELECT b.* FROM bookings AS b WHERE b.user_id = :userId " +
             "AND b.status = :status " +
             "ORDER BY b.start DESC", nativeQuery = true)
-    Collection<Booking> getUserBookingStatus(Integer userId, State status);
+    Collection<Booking> getUserBookingStatus(Integer userId, String status);
 
     //Queries for item's bookings
     @Query(value = "SELECT b.* FROM bookings AS b " +
@@ -63,7 +62,7 @@ public interface BookingStorage extends JpaRepository<Booking, Integer> {
             "LEFT outer JOIN items as i ON i.id = b.item_id " +
             "WHERE i.user_id = :userId AND b.status = :status " +
             "ORDER BY b.start DESC", nativeQuery = true)
-    Collection<Booking> getHostBookingStatus(Integer userId, State status);
+    Collection<Booking> getHostBookingStatus(Integer userId, String status);
 
     @Query(value = "SELECT EXISTS(SELECT b.* FROM bookings AS b" +
             " WHERE b.item_id = :itemId AND b.user_id = :userId AND b.start < :now)", nativeQuery = true)

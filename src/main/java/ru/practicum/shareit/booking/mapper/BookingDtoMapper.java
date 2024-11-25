@@ -14,15 +14,4 @@ public class BookingDtoMapper {
                 .status(dto.getStatus())
                 .build();
     }
-
-    public BookingDto mapToDto(Booking booking) {
-        return BookingDto.builder()
-                .id(booking.getId())
-                .start(booking.getStart())
-                .end(booking.getEnd())
-                .itemId(booking.getItem().getId())
-                .booker(booking.getBooker().getId())
-                .status(booking.getStatus())
-                .build();
-    }
 }

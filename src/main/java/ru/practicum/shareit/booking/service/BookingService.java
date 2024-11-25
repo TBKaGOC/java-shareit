@@ -56,7 +56,7 @@ public class BookingService {
             case CURRENT -> bookings = bookingStorage.getUserBookingInProgress(userId, now);
             case PAST -> bookings = bookingStorage.getUserBookingInPast(userId, now);
             case FUTURE -> bookings = bookingStorage.getUserBookingFuture(userId, now);
-            case WAITING, REJECTED -> bookings = bookingStorage.getUserBookingStatus(userId, state);
+            case WAITING, REJECTED -> bookings = bookingStorage.getUserBookingStatus(userId, state.toString());
         }
 
         return bookings.stream().map(returnMapper::mapToDto).collect(Collectors.toSet());
@@ -73,7 +73,7 @@ public class BookingService {
             case CURRENT -> bookings = bookingStorage.getHostBookingInProgress(userId, now);
             case PAST -> bookings = bookingStorage.getHostBookingInPast(userId, now);
             case FUTURE -> bookings = bookingStorage.getHostBookingFuture(userId, now);
-            case WAITING, REJECTED -> bookings = bookingStorage.getHostBookingStatus(userId, state);
+            case WAITING, REJECTED -> bookings = bookingStorage.getHostBookingStatus(userId, state.toString());
         }
 
         return bookings.stream().map(returnMapper::mapToDto).collect(Collectors.toSet());
