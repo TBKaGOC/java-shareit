@@ -14,7 +14,6 @@ import ru.practicum.shareit.item.exception.NotFoundException;
 import ru.practicum.shareit.request.dto.ItemRequestDto;
 import ru.practicum.shareit.request.service.ItemRequestService;
 import ru.practicum.shareit.user.dto.UserDto;
-import ru.practicum.shareit.user.exception.CorruptedDataException;
 import ru.practicum.shareit.user.exception.DuplicateDataException;
 import ru.practicum.shareit.user.service.UserService;
 
@@ -36,7 +35,7 @@ public class RequestServiceTest {
     private final UserService userService;
 
     @Test
-    void testSaveRequest() throws DuplicateDataException, CorruptedDataException, NotFoundException {
+    void testSaveRequest() throws DuplicateDataException, NotFoundException {
         ItemRequestDto dto = createDto("description");
         UserDto user = createUser("u@e.t", "Name");
 
@@ -53,7 +52,7 @@ public class RequestServiceTest {
     }
 
     @Test
-    void testGetUserRequests() throws DuplicateDataException, CorruptedDataException, NotFoundException {
+    void testGetUserRequests() throws DuplicateDataException, NotFoundException {
         ItemRequestDto dto = createDto("description");
         ItemRequestDto dto1 = createDto("description1");
         UserDto user = createUser("u@e.t", "Name");
@@ -68,7 +67,7 @@ public class RequestServiceTest {
     }
 
     @Test
-    void testGetAll() throws DuplicateDataException, CorruptedDataException, NotFoundException {
+    void testGetAll() throws DuplicateDataException, NotFoundException {
         ItemRequestDto dto = createDto("description");
         ItemRequestDto dto1 = createDto("description1");
         UserDto user = createUser("u@e.t", "Name");
@@ -85,7 +84,7 @@ public class RequestServiceTest {
     }
 
     @Test
-    void testGetOne() throws DuplicateDataException, CorruptedDataException, NotFoundException, ru.practicum.shareit.request.exception.NotFoundException {
+    void testGetOne() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.request.exception.NotFoundException {
         ItemRequestDto dto = createDto("description");
         UserDto user = createUser("u@e.t", "Name");
 
@@ -100,7 +99,7 @@ public class RequestServiceTest {
     }
 
     @Test
-    void testGetOneGetNotFound() throws DuplicateDataException, CorruptedDataException, NotFoundException {
+    void testGetOneGetNotFound() throws DuplicateDataException, NotFoundException {
         ItemRequestDto dto = createDto("description");
         UserDto user = createUser("u@e.t", "Name");
 

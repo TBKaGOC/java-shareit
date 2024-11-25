@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item.exception.NotFoundException;
 import ru.practicum.shareit.user.dto.UserDto;
-import ru.practicum.shareit.user.exception.CorruptedDataException;
 import ru.practicum.shareit.user.exception.DuplicateDataException;
 import ru.practicum.shareit.user.service.UserService;
 
@@ -24,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto createUser(@RequestBody @Valid UserDto user) throws DuplicateDataException, CorruptedDataException, NotFoundException {
+    public UserDto createUser(@RequestBody @Valid UserDto user) throws DuplicateDataException, NotFoundException {
         return service.createUser(user);
     }
 
