@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.booking.dto.BookItemRequestDto;
 import ru.practicum.shareit.booking.dto.BookingState;
 
+import java.util.Collection;
+
 
 @Controller
 @RequestMapping(path = "/bookings")
@@ -32,6 +34,12 @@ public class BookingController {
 		return bookingClient.getBookings(userId, state, from, size);
 	}
 
+	@GetMapping("/owner")
+	public ResponseEntity<Object> getHostBookings(@RequestHeader("X-Sharer-User-Id") Integer userId,
+												  @RequestParam(required = false, defaultValue = "ALL") String state) {
+		return bookingClient.getHostBookings(userId, state);
+	}
+
 	@PostMapping
 	public ResponseEntity<Object> bookItem(@RequestHeader("X-Sharer-User-Id") long userId,
 			@RequestBody @Valid BookItemRequestDto requestDto) {
@@ -44,5 +52,12 @@ public class BookingController {
 			@PathVariable Long bookingId) {
 		log.info("Get booking {}, userId={}", bookingId, userId);
 		return bookingClient.getBooking(userId, bookingId);
+	}
+
+	@PatchMapping("/{bookingId}")
+	public ResponseEntity<Object> updateBookingStatus(@PathVariable Integer bookingId,
+												@RequestParam boolean approved,
+												@RequestHeader("X-Sharer-User-Id") Integer userId) {
+		return bookingClient.updateBookingStatus(bookingId, approved, userId);
 	}
 }

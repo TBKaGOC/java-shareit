@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingReturnDto;
-import ru.practicum.shareit.booking.exception.CorruptedDataException;
 import ru.practicum.shareit.booking.exception.InvalidHostException;
 import ru.practicum.shareit.booking.exception.UnavailableItemException;
 import ru.practicum.shareit.booking.model.Booking;
@@ -43,7 +42,7 @@ public class BookingServiceTests {
     private final ItemService itemService;
 
     @Test
-    void testGetBookingByCreator() throws DuplicateDataException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, InvalidHostException, NotFoundException {
+    void testGetBookingByCreator() throws DuplicateDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, InvalidHostException, NotFoundException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -64,7 +63,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetBookingByHost() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, InvalidHostException {
+    void testGetBookingByHost() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, InvalidHostException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -85,7 +84,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetBookingGetInvalidHost() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetBookingGetInvalidHost() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         UserDto user2 = createUser("u2@m.c", "name2");
@@ -105,7 +104,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetHostBookingsAll() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetHostBookingsAll() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -120,7 +119,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetHostBookingsCurrent() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetHostBookingsCurrent() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -135,7 +134,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetHostBookingsPast() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetHostBookingsPast() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -156,7 +155,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetHostBookingsFuture() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetHostBookingsFuture() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -177,7 +176,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetHostBookingsWaiting() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetHostBookingsWaiting() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -192,7 +191,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetUserBookingsAll() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetUserBookingsAll() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -207,7 +206,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetUserBookingsCurrent() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetUserBookingsCurrent() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -222,7 +221,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetUserBookingsPast() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetUserBookingsPast() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -243,7 +242,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetUserBookingsFuture() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetUserBookingsFuture() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -264,7 +263,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetUserBookingsWaiting() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetUserBookingsWaiting() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -279,7 +278,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testAddBooking() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testAddBooking() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -302,29 +301,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testAddBookingGetCorruptedData() throws DuplicateDataException, NotFoundException {
-        UserDto user = createUser("u@m.c", "name");
-        UserDto user1 = createUser("u1@m.c", "name1");
-        ItemDto item = createItem();
-
-        user = userService.createUser(user);
-        user1 = userService.createUser(user1);
-        item = itemService.createItem(item, user.getId());
-
-        BookingDto corruptedBooking = BookingDto.builder()
-                .itemId(item.getId())
-                .end(LocalDateTime.now().minusDays(2))
-                .start(LocalDateTime.now().plusDays(2))
-                .build();
-        int userId = user1.getId();
-
-        Assertions.assertThrows(ru.practicum.shareit.booking.exception.CorruptedDataException.class,
-                () -> service.addBooking(corruptedBooking, userId)
-                );
-    }
-
-    @Test
-    void testUpdateStatusTrue() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, InvalidHostException {
+    void testUpdateStatusTrue() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, InvalidHostException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -346,7 +323,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testUpdateStatusFalse() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, InvalidHostException {
+    void testUpdateStatusFalse() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, InvalidHostException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -368,7 +345,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testUpdateStatusGetInvalidHost() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testUpdateStatusGetInvalidHost() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -386,7 +363,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testUpdateStatusGetNotFound() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testUpdateStatusGetNotFound() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
@@ -423,7 +400,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    void testGetUserBookingsGetNotFound() throws DuplicateDataException, NotFoundException, CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
+    void testGetUserBookingsGetNotFound() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = ItemDto.builder()

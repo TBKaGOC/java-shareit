@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.dto.BookingDto;
-import ru.practicum.shareit.booking.exception.CorruptedDataException;
 import ru.practicum.shareit.booking.exception.UnavailableItemException;
 import ru.practicum.shareit.booking.service.BookingService;
 import ru.practicum.shareit.item.dto.ItemDto;
@@ -117,7 +116,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    void  testCreateComment() throws DuplicateDataException, NotFoundException, InvalidBookingException, CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, ru.practicum.shareit.booking.exception.InvalidHostException {
+    void  testCreateComment() throws DuplicateDataException, NotFoundException, InvalidBookingException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, ru.practicum.shareit.booking.exception.InvalidHostException {
         ItemDto dto = createDto();
         UserDto user = createUser();
 

@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingReturnDto;
-import ru.practicum.shareit.booking.exception.CorruptedDataException;
 import ru.practicum.shareit.booking.exception.InvalidHostException;
 import ru.practicum.shareit.booking.exception.NotFoundException;
 import ru.practicum.shareit.booking.exception.UnavailableItemException;
@@ -143,21 +142,6 @@ public class BookingControllerTests {
                         .header("X-Sharer-User-Id", 1))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is(404));
-    }
-
-    @Test
-    void testAddBookingGetCorrupted() throws Exception {
-        when(service.addBooking(any(), any()))
-                .thenThrow(CorruptedDataException.class);
-
-        mvc.perform(post("/bookings")
-                        .content(mapper.writeValueAsString(dto))
-                        .characterEncoding(StandardCharsets.UTF_8)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .header("X-Sharer-User-Id", 1))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(400));
     }
 
     @Test

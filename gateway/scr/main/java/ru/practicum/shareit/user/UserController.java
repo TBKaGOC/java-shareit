@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.user.dto.UserDto;
 
 @Controller
-@RequestMapping(path = "/items")
+@RequestMapping(path = "/users")
 @RequiredArgsConstructor
 @Validated
 public class UserController {

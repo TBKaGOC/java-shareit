@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingReturnDto;
-import ru.practicum.shareit.booking.exception.CorruptedDataException;
 import ru.practicum.shareit.booking.exception.InvalidHostException;
 import ru.practicum.shareit.booking.exception.NotFoundException;
 import ru.practicum.shareit.booking.exception.UnavailableItemException;
@@ -45,7 +44,7 @@ public class BookingController {
 
     @PostMapping
     public BookingReturnDto addBooking(@RequestBody @Valid BookingDto booking, @RequestHeader("X-Sharer-User-Id") Integer userId)
-            throws CorruptedDataException, NotFoundException, UnavailableItemException, ru.practicum.shareit.item.exception.NotFoundException {
+            throws NotFoundException, UnavailableItemException, ru.practicum.shareit.item.exception.NotFoundException {
         return service.addBooking(booking, userId);
     }
 

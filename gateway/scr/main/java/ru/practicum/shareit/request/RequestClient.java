@@ -1,4 +1,4 @@
-package ru.practicum.shareit.user;
+package ru.practicum.shareit.request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,14 +8,14 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.client.BaseClient;
-import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.request.dto.RequestDto;
 
 @Service
-public class UserClient extends BaseClient {
-    private static final String API_PREFIX = "/users";
+public class RequestClient extends BaseClient {
+    private static final String API_PREFIX = "/requests";
 
     @Autowired
-    public UserClient(@Value("${shareit-server.url}") String serverUrl, RestTemplateBuilder builder) {
+    public RequestClient(@Value("${shareit-server.url}") String serverUrl, RestTemplateBuilder builder) {
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl + API_PREFIX))
@@ -24,19 +24,19 @@ public class UserClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> getUser(Integer userId) {
-        return get("/" + userId);
+    public ResponseEntity<Object> getRequests(Integer userId) {
+        return get("", userId);
     }
 
-    public ResponseEntity<Object> createUser(UserDto user) {
-        return post("", user);
+    public ResponseEntity<Object> getAll() {
+        return get("/all");
     }
 
-    public ResponseEntity<Object> updateUser(UserDto user, Integer userId) {
-        return patch("/" + userId, user);
+    public ResponseEntity<Object> getOne(Integer requestId) {
+        return get("/" + requestId);
     }
 
-    public ResponseEntity<Object> deleteUser(Integer userId) {
-        return delete("/" + userId, userId);
+    public ResponseEntity<Object> addRequest(RequestDto request, Integer userId) {
+        return post("", userId, request);
     }
 }

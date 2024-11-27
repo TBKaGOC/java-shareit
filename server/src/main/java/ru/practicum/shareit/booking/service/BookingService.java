@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.dao.BookingStorage;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingReturnDto;
-import ru.practicum.shareit.booking.exception.CorruptedDataException;
 import ru.practicum.shareit.booking.exception.InvalidHostException;
 import ru.practicum.shareit.booking.exception.UnavailableItemException;
 import ru.practicum.shareit.booking.mapper.BookingDtoMapper;
@@ -80,14 +79,10 @@ public class BookingService {
     }
 
     public BookingReturnDto addBooking(BookingDto booking, Integer bookerId) throws NotFoundException,
-            CorruptedDataException,
             UnavailableItemException, ru.practicum.shareit.item.exception.NotFoundException {
         userService.throwNotFound(bookerId);
         itemService.throwNotFound(booking.getItemId());
         itemService.throwNotAvailable(booking.getItemId());
-        if (booking.getEnd().equals(booking.getStart()) || booking.getEnd().isBefore(booking.getStart())) {
-            throw new CorruptedDataException("Дата старта должна быть раньше даты конца");
-        }
 
         Booking b = mapper.mapToBooking(booking);
         b.setStatus(Status.WAITING);

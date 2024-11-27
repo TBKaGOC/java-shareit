@@ -5,7 +5,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.practicum.shareit.booking.exception.CorruptedDataException;
 import ru.practicum.shareit.booking.exception.UnavailableItemException;
 import ru.practicum.shareit.booking.exception.InvalidHostException;
 import ru.practicum.shareit.booking.exception.NotFoundException;
@@ -16,12 +15,6 @@ public class BookingErrorHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse notFound(NotFoundException e) {
         return new ErrorResponse("NotFoundException", e.getMessage());
-    }
-
-    @ExceptionHandler({CorruptedDataException.class, MethodArgumentNotValidException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse corruptedData(Exception e) {
-        return new ErrorResponse("CorruptedDataException", e.getMessage());
     }
 
     @ExceptionHandler
