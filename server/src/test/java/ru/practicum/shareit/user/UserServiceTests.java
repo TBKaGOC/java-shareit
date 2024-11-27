@@ -17,7 +17,6 @@ import ru.practicum.shareit.user.service.UserService;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.nullValue;
 
 @Transactional
 @SpringBootTest(

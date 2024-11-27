@@ -43,7 +43,7 @@ public class BookingServiceTests {
     private final ItemService itemService;
 
     @Test
-    void testGetBookingByCreator() throws DuplicateDataException, NotFoundException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, InvalidHostException {
+    void testGetBookingByCreator() throws DuplicateDataException, ru.practicum.shareit.booking.exception.CorruptedDataException, ru.practicum.shareit.booking.exception.NotFoundException, UnavailableItemException, InvalidHostException, NotFoundException {
         UserDto user = createUser("u@m.c", "name");
         UserDto user1 = createUser("u1@m.c", "name1");
         ItemDto item = createItem();
