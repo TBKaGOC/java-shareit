@@ -23,6 +23,7 @@
 
 	<properties>
 		<java.version>21</java.version>
+		<spring-boot.repackage.skip>true</spring-boot.repackage.skip>
 	</properties>
 
 	<dependencies>
