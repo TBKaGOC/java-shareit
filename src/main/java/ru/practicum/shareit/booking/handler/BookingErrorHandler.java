@@ -1,16 +1,16 @@
-package ru.practicum.shareit.item.handler;
+package ru.practicum.shareit.booking.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.practicum.shareit.item.exception.InvalidBookingException;
-import ru.practicum.shareit.item.exception.InvalidHostException;
-import ru.practicum.shareit.item.exception.NotFoundException;
+import ru.practicum.shareit.booking.exception.UnavailableItemException;
+import ru.practicum.shareit.booking.exception.InvalidHostException;
+import ru.practicum.shareit.booking.exception.NotFoundException;
 
-@RestControllerAdvice("ru.practicum.shareit.item")
-public class ItemErrorHandler {
+@RestControllerAdvice("ru.practicum.shareit.booking")
+public class BookingErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse notFound(NotFoundException e) {
@@ -31,8 +31,8 @@ public class ItemErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse invalidBooking(InvalidBookingException e) {
-        return new ErrorResponse("InvalidBookingException", e.getMessage());
+    public ErrorResponse unavailableItem(UnavailableItemException e) {
+        return new ErrorResponse("UnavailableItemException", e.getMessage());
     }
 
     @ExceptionHandler

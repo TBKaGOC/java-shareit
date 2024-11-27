@@ -6,17 +6,19 @@ import lombok.Builder;
 import lombok.Getter;
 import ru.practicum.shareit.item.model.Comment;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
-/**
- * TODO Sprint add-controllers.
- */
 @Builder
 @Getter
-public class ItemDto {
+public class ItemDtoWithDate {
     private Integer id;
-    @NotBlank private String name;
+    @NotBlank
+    private String name;
     @NotBlank private String description;
-    @NotNull private Boolean available;
+    @NotNull
+    private Boolean available;
+    private LocalDateTime lastBooking;
+    private LocalDateTime nextBooking;
     private Set<Comment> comments;
 }
