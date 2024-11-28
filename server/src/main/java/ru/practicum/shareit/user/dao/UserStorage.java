@@ -10,4 +10,7 @@ public interface UserStorage extends JpaRepository<User, Integer> {
 
     @Query("select u.name from User as u where u.id = :userId")
     String getName(Integer userId);
+
+    @Query(value = "DELETE FROM users WHERE id = :userId", nativeQuery = true)
+    void deleteById(Integer userId);
 }

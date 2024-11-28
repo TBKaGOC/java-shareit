@@ -9,6 +9,7 @@ import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.exception.DuplicateDataException;
 import ru.practicum.shareit.user.mapper.UserDtoMapper;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -58,6 +59,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Integer userId) {
+        Collection<User> users = storage.findAll();
+
         storage.deleteById(userId);
     }
 
