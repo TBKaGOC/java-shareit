@@ -1,6 +1,7 @@
 package ru.practicum.shareit.user.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import ru.practicum.shareit.user.User;
 
@@ -11,6 +12,7 @@ public interface UserStorage extends JpaRepository<User, Integer> {
     @Query("select u.name from User as u where u.id = :userId")
     String getName(Integer userId);
 
+    @Modifying
     @Query(value = "DELETE FROM users WHERE id = :userId", nativeQuery = true)
     void deleteById(Integer userId);
 }
