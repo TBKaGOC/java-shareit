@@ -56,7 +56,7 @@ public class BookingController {
 
 	@PatchMapping("/{bookingId}")
 	public ResponseEntity<Object> updateBookingStatus(@PathVariable Integer bookingId,
-												@RequestParam boolean approved,
+												@RequestParam Boolean approved,
 												@RequestHeader("X-Sharer-User-Id") Integer userId) {
 		return bookingClient.updateBookingStatus(bookingId, approved, userId);
 	}
