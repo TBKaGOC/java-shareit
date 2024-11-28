@@ -10,6 +10,6 @@ import lombok.Setter;
 @Getter
 public class UserDto {
     @Setter private Integer id;
-    @NotBlank private String name;
+    private String name;
     @Email private String email;
 }

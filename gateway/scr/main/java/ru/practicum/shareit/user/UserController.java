@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.exception.CorruptedDataException;
 import ru.practicum.shareit.user.dto.UserDto;
 
 @Controller
@@ -21,7 +22,10 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createUser(@RequestBody @Valid UserDto user) {
+    public ResponseEntity<Object> createUser(@RequestBody @Valid UserDto user) throws CorruptedDataException {
+        if (user.getEmail() == null) {
+            throw new CorruptedDataException("Емэйл не может быть null");
+        }
         return client.createUser(user);
     }
 
