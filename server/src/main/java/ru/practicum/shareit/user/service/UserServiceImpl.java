@@ -59,9 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Integer userId) {
-        Collection<User> users = storage.findAll();
-
-        storage.deleteById(userId);
+            storage.deleteById(userId);
     }
 
     @Override
