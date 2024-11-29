@@ -1,5 +1,8 @@
 package ru.practicum.shareit.user;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,10 +24,10 @@ import static org.hamcrest.Matchers.equalTo;
 )
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class UserServiceTests {
-    //private final EntityManager em;
+    private final EntityManager em;
     private final UserService service;
 
-    /*@Test
+    @Test
     void testSaveUser() throws DuplicateDataException, NotFoundException {
         UserDto userDto = createUser("name", "m@m.m");
         int userId = service.createUser(userDto).getId();
@@ -35,9 +38,9 @@ public class UserServiceTests {
 
         assertThat(user.getName(), equalTo(userDto.getName()));
         assertThat(user.getEmail(), equalTo(userDto.getEmail()));
-    }*/
+    }
 
-    /*@Test
+    @Test
     void testUpdateUser() throws DuplicateDataException, NotFoundException {
         UserDto userDto = createUser("name", "m@m.m");
         int userId = service.createUser(userDto).getId();
@@ -50,7 +53,7 @@ public class UserServiceTests {
 
         assertThat(user.getName(), equalTo(userDto.getName()));
         assertThat(user.getEmail(), equalTo(userDto.getEmail()));
-    }*/
+    }
 
     @Test
     void testGetUser() throws DuplicateDataException, NotFoundException {
@@ -104,7 +107,7 @@ public class UserServiceTests {
         );
     }
 
-    /*@Test
+    @Test
     void testDeleteUser() throws DuplicateDataException, NotFoundException {
         UserDto userDto = createUser("name", "m@m.m");
         int userId = service.createUser(userDto).getId();
@@ -113,7 +116,7 @@ public class UserServiceTests {
         TypedQuery<User> query = em.createQuery("Select u from User u where id = :id", User.class);
 
         Assertions.assertThrows(NoResultException.class, () -> query.setParameter("id", userId).getSingleResult());
-    }*/
+    }
 
     private UserDto createUser(String name, String email) {
         return UserDto.builder()
