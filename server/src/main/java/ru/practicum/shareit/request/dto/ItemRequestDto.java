@@ -1,6 +1,5 @@
 package ru.practicum.shareit.request.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +15,6 @@ import java.util.Set;
 @Getter
 public class ItemRequestDto {
     Integer id;
-    @NotNull
     String description;
     @Setter
     Integer hostId;

@@ -1,6 +1,5 @@
 package ru.practicum.shareit.booking.dto;
 
-import jakarta.validation.constraints.Future;
 import lombok.Builder;
 import lombok.Getter;
 import ru.practicum.shareit.booking.model.Status;
@@ -13,9 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 public class BookingReturnDto {
     Integer id;
-    @Future
     LocalDateTime start;
-    @Future
     LocalDateTime end;
     Item item;
     User booker;

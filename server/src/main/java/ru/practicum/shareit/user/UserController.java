@@ -1,6 +1,5 @@
 package ru.practicum.shareit.user;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item.exception.NotFoundException;
@@ -23,12 +22,12 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto createUser(@RequestBody @Valid UserDto user) throws DuplicateDataException, NotFoundException {
+    public UserDto createUser(@RequestBody UserDto user) throws DuplicateDataException, NotFoundException {
         return service.createUser(user);
     }
 
     @PatchMapping("/{userId}")
-    public UserDto updateUser(@RequestBody @Valid UserDto user, @PathVariable Integer userId)
+    public UserDto updateUser(@RequestBody UserDto user, @PathVariable Integer userId)
             throws DuplicateDataException, NotFoundException {
         return service.updateUser(user, userId);
     }
