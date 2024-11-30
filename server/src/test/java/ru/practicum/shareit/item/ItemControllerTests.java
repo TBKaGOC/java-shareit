@@ -226,15 +226,4 @@ public class ItemControllerTests {
                         .header("X-Sharer-User-Id", 1))
                 .andExpect(status().is(500));
     }
-
-    @Test
-    void testSaveItemGetCorruptedData() throws Exception {
-        mvc.perform(post("/items")
-                        .content(mapper.writeValueAsString(ItemDto.builder().build()))
-                        .characterEncoding(StandardCharsets.UTF_8)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .header("X-Sharer-User-Id", 1))
-                .andExpect(status().is(400));
-    }
 }

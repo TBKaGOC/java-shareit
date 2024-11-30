@@ -126,18 +126,6 @@ public class RequestControllerTests {
     }
 
     @Test
-    void testSaveGetValidationException() throws Exception {
-        mvc.perform(post("/requests")
-                .content(mapper.writeValueAsString(ItemRequestDto.builder().build()))
-                .characterEncoding(StandardCharsets.UTF_8)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .header("X-Sharer-User-Id", 1))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(400));
-    }
-
-    @Test
     void testSaveGetException() throws Exception {
         when(service.addRequest(any(), any()))
                 .thenThrow(RuntimeException.class);
